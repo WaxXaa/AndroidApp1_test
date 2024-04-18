@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppMatriculaTaller</string>
+    <string name="edad">edad</string>
+    <string name="nombre">nombre</string>
+    <string name="mi_super_app">Mi Super App</string>
+    <string name="nombre_completo">Nombre Completo</string>
+    <string name="matricular">Matricular</string>
+    <string name="mostrar_profesor">mostrar profesor</string>
+</resources>
