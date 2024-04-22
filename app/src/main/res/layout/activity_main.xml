@@ -33,16 +33,40 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="20dp">
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mañana"
+                android:checked="true"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Tarde"/>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Noche"/>
+        </RadioGroup>
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/mostrar_profesor"
         android:id="@+id/check"
+        android:layout_marginBottom="20dp"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/matricular"
         android:id="@+id/btnMatricular"
+        android:onClick="matricular"
         />
 </LinearLayout>
