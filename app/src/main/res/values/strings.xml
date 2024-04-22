@@ -6,4 +6,7 @@
     <string name="nombre_completo">Nombre Completo</string>
     <string name="matricular">Matricular</string>
     <string name="mostrar_profesor">mostrar profesor</string>
+    <string name="matutino">Matutino</string>
+    <string name="tarde">Tarde</string>
+    <string name="noche">Noche</string>
 </resources>

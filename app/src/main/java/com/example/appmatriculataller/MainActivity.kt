@@ -1,5 +1,6 @@
 package com.example.appmatriculataller
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var radioGroup: RadioGroup
     private val opcionesMaterias : List<String> = listOf("Investigacion de Operaciones", "Desarrollo de Software VI","Desarrollo de Software V","Ingenieria de Software II"," Arquitectura de Computadoras" )
     private lateinit var adapter: ArrayAdapter<*>
-    private val turnoMatutino = "Mañana"
+    private val turnoMatutino = "Matutino"
     private val turnoTarde = "Tarde"
     private val turnoNoche = "Noche"
     private val materiasProfesorTurno : Map<String, Map<String, String>> = mapOf(
@@ -43,21 +44,29 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mensajeMatricula : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         inicializar()
         adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opcionesMaterias)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spn.adapter = adapter
+
+        button.setOnClickListener {
+            matricular()
+        }
     }
-    fun inicializar() {
+    private fun inicializar() {
         nombre = findViewById(R.id.nombre)
         edad = findViewById(R.id.edad)
         spn = findViewById(R.id.spnMaterias)
         checkBox = findViewById(R.id.check)
         button = findViewById(R.id.btnMatricular)
+        radioGroup = findViewById(R.id.turnos)
+        materia = ""
 
     }
-    fun matricular(view: View) {
+
+    private fun matricular() {
             if(nombre.text.toString().isEmpty()) {
                 nombre.error = "este campo es obligatorio"
                 return
@@ -71,14 +80,15 @@ class MainActivity : AppCompatActivity() {
             val selectRadioButtonId = radioGroup.checkedRadioButtonId
             val selectRadioButton: RadioButton = findViewById(selectRadioButtonId)
             turno = selectRadioButton.text.toString()
+            materia = spn.selectedItem.toString()
 
-            spn.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            /*spn.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     materia = parent?.getItemAtPosition(position).toString()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
+            }*/
             //asigna profe en funcion de la materia y turno
             val profe = if(checkBox.isChecked) {
                 materiasProfesorTurno[materia]?.get(turno)
@@ -86,21 +96,17 @@ class MainActivity : AppCompatActivity() {
 
             //mostrar profesor en mensaje
             mensajeMatricula = if(profe != null) {
-                "Informacion de Matricula \nNombre: ${nombre.text.toString()}\nEdad: $edadNum\nMateria: $materia\nTurno: $turno\nProfesor: $profe"
+                "Informacion de Matricula \nNombre: ${nombre.text}\nEdad: $edadNum\nMateria: $materia\nTurno: $turno\nProfesor: $profe"
             } else {
-                "Informacion de Matricula \nNombre: ${nombre.text.toString()}\nEdad: $edadNum\nMateria: $materia\nTurno: $turno"
+                "Informacion de Matricula \nNombre: ${nombre.text}\nEdad: $edadNum\nMateria: $materia\nTurno: $turno"
             }
 
-
-
-            val dialog = MatriculaDialogFragment()
-            dialog.setMensaje(mensajeMatricula)
-            dialog.show()
-
+        val dialogo = MatriculaDialogo()
+        dialogo.setMensaje(mensajeMatricula)
+        dialogo.mostrar(this)
     }
+
 }
-
-
 
 // ya estaba aqui no se que es, se genera por defecto
 @Preview(showBackground = true)
@@ -118,3 +124,4 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
     )
 }
+
